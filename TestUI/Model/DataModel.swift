@@ -29,3 +29,23 @@ class DataModel {
         self.team = "juve"
     }
 }
+
+class Team {
+    var name : String?
+    var logo : UIImage?
+    
+    init(name : String, logo : UIImage) {
+        self.name = name
+        self.logo = logo
+    }
+    
+    static func getTeams() -> [Team] {
+       return [
+            Team(name: "Juve", logo: #imageLiteral(resourceName: "234043823-390c6553-ad33-4f97-8606-6d050b73c2a1")),
+            Team(name: "Milan", logo: #imageLiteral(resourceName: "490px-Logo_of_AC_Milan.svg")),
+            Team(name: "Inter", logo: #imageLiteral(resourceName: "Inter logo")),
+            Team(name: "Roma", logo: #imageLiteral(resourceName: "1200px-AS_Roma_Logo_2017.svg")),
+            Team(name: "Napoli", logo: #imageLiteral(resourceName: "SSC_Napoli_2007.svg"))
+        ]
+    }
+}

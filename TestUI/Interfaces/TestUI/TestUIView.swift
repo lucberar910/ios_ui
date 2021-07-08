@@ -113,6 +113,7 @@ class TestUIView: UIView {
         return labelTeam
     }()
 
+    // >>>>> BUTTON
     let button : UIButton = {
         let button = UIButton()
         button.backgroundColor = UIColor.green
@@ -128,6 +129,7 @@ class TestUIView: UIView {
         return button
     }()
     
+    // >>>>> ACTIVITY INDICATOR
     let activityIndicatorLabel : UILabel = {
         let label = UILabel()
         label.text = "Activity indicator"
@@ -144,6 +146,7 @@ class TestUIView: UIView {
         return label
     }()
     
+    // >>>>> DATE PICKER
     let selectedDate : UILabel = {
         let label = UILabel()
         label.text = "Selected date:"
@@ -162,6 +165,7 @@ class TestUIView: UIView {
         return datePicker
     }()
 
+    // >>>>> PICKER
     let selectedPicker : UILabel = {
         let label = UILabel()
         label.text = "Selected picker:"
@@ -173,6 +177,7 @@ class TestUIView: UIView {
         return picker
     }()
     
+    // >>>>> IMAGE PICKER
     let buttonImagePicker : UIButton = {
         let button = UIButton()
         button.backgroundColor = UIColor.green
@@ -210,6 +215,7 @@ class TestUIView: UIView {
         return imageView
     }()
     
+    // >>>>> ALERT
     let buttonAlert1 : UIButton = {
         let button = UIButton()
         button.backgroundColor = UIColor.green
@@ -240,6 +246,7 @@ class TestUIView: UIView {
         return button
     }()
     
+    // >>>>> COLOR PICKER
     let buttonColorPicker : UIButton = {
         let button = UIButton()
         button.backgroundColor = UIColor.green
@@ -255,6 +262,7 @@ class TestUIView: UIView {
         return button
     }()
     
+    // >>>>> COLOR WELL
     let colorWell : UIColorWell = {
         let colorWell = UIColorWell(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
         colorWell.title = "Color well picker"
@@ -262,6 +270,7 @@ class TestUIView: UIView {
         return colorWell
     }()
     
+    // >>>>> FONT PICKER
     let buttonFontPicker : UIButton = {
         let button = UIButton()
         button.backgroundColor = UIColor.green
@@ -282,6 +291,120 @@ class TestUIView: UIView {
         label.text = "font picker text"
         return label
     }()
+    
+    // >>>>> SCROLL VIEW HORIZONTAL + PAGE CONTROL
+    let scrollViewHorizontal: UIScrollView = {
+        let v = UIScrollView()
+        v.translatesAutoresizingMaskIntoConstraints = false
+        v.backgroundColor = .white
+        v.frame = CGRect(x:0, y:0, width:320,height: 300)
+        v.isPagingEnabled = true
+        return v
+    }()
+    
+    let stackViewHorizontal : UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.distribution = .fillEqually
+        stack.alignment = .fill
+        stack.spacing = 0
+        return stack
+    }()
+    
+    let pageControl : UIPageControl = {
+        let p = UIPageControl()
+        p.frame = CGRect(x:50,y: 300, width:200, height:50)
+        p.currentPage = 0
+        p.tintColor = UIColor.red
+        p.pageIndicatorTintColor = UIColor.black
+        p.currentPageIndicatorTintColor = UIColor.green
+        return p
+    }()
+
+    // >>>>> PROGRESS VIEW
+    let progressView : UIProgressView = {
+        let progress = UIProgressView()
+        return progress
+    }()
+    
+    let progressViewButton : UIButton = {
+        let button = UIButton()
+        button.backgroundColor = UIColor.green
+        button.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
+        button.setTitle("Next", for: .normal)
+        button.layer.borderWidth = 0.3
+        button.layer.borderColor = #colorLiteral(red: 0.9607843161, green: 0.7058823705, blue: 0.200000003, alpha: 1)
+        button.layer.shadowOffset = CGSize(width: -1, height: 1)
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOpacity = 0.1
+        button.layer.cornerRadius = 10
+        button.addTarget(self, action: #selector(TestUIViewController.nextProgressView), for: .touchUpInside)
+        return button
+    }()
+
+    // >>>>> SEGMENTED CONTROL
+    let segmentedControl : UISegmentedControl = {
+        let seg = UISegmentedControl(items: ["juve", "milan", "inter"])
+        seg.selectedSegmentIndex = 0
+        seg.layer.cornerRadius = 5.0
+        seg.backgroundColor = UIColor.white
+        seg.tintColor = UIColor.systemBlue
+        seg.addTarget(self, action: #selector(TestUIViewController.changeSegment), for: .valueChanged)
+        return seg
+    }()
+    
+    let segmentedControlImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = #imageLiteral(resourceName: "234043823-390c6553-ad33-4f97-8606-6d050b73c2a1")
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+    
+    // >>>>> SLIDER
+    let slider : UISlider = {
+        let slider = UISlider()
+        slider.minimumValue = 0
+        slider.maximumValue = 100
+        slider.isContinuous = true
+        slider.tintColor = UIColor.systemBlue
+        slider.addTarget(self, action: #selector(TestUIViewController.sliderValueDidChange(_:)), for: .valueChanged)
+        return slider
+    }()
+    
+    let sliderLabel : UILabel = {
+        let label = UILabel()
+        label.text = "0"
+        return label
+    }()
+    
+    // >>>>> STEPPER
+    let stepper : UIStepper = {
+        let stepper = UIStepper()
+        stepper.addTarget(self, action: #selector(TestUIViewController.stepperValueChanged(_:)), for: .valueChanged)
+        return stepper
+    }()
+    
+    let stepperLabel : UILabel = {
+        let label = UILabel()
+        label.text = "0"
+        return label
+    }()
+    
+    // >>>>> SWITCH
+    let sw : UISwitch = {
+        let sw = UISwitch()
+        sw.isOn = true
+        sw.setOn(true, animated: false)
+        sw.addTarget(self, action: #selector(TestUIViewController.switchValueChanged), for: .valueChanged)
+        return sw
+    }()
+    
+    let swLabel : UILabel = {
+        let label = UILabel()
+        label.text = "On"
+        return label
+    }()
+        
     
     // MARK: - Object lifecycle
         
@@ -338,6 +461,25 @@ class TestUIView: UIView {
         //------------ font picker
         scrollView.addSubview(buttonFontPicker)
         scrollView.addSubview(fontPickerLabel)
+        //------------ scroll view horizontal + page control
+        scrollViewHorizontal.addSubview(stackViewHorizontal)
+        scrollView.addSubview(scrollViewHorizontal)
+        scrollView.addSubview(pageControl)
+        //------------ progress view
+        scrollView.addSubview(progressView)
+        scrollView.addSubview(progressViewButton)
+        //------------ segmented control
+        scrollView.addSubview(segmentedControl)
+        scrollView.addSubview(segmentedControlImage)
+        //------------ slider
+        scrollView.addSubview(slider)
+        scrollView.addSubview(sliderLabel)
+        //------------ stepper
+        scrollView.addSubview(stepper)
+        scrollView.addSubview(stepperLabel)
+        //------------ swicth
+        scrollView.addSubview(sw)
+        scrollView.addSubview(swLabel)
     }
     
     private func configureConstraints() {
@@ -449,6 +591,7 @@ class TestUIView: UIView {
         colorWell.widthAnchor == 300
         colorWell.topAnchor == sep8.separator.bottomAnchor + 10
         colorWell.leadingAnchor == imageViewPlayer.leadingAnchor
+        // font picker
         let sep9 = Separator("FONT PICKER")
         scrollView.addSubview(sep9.separator)
         sep9.separator.topAnchor == colorWell.bottomAnchor + 10
@@ -457,7 +600,72 @@ class TestUIView: UIView {
         fontPickerLabel.topAnchor == buttonFontPicker.bottomAnchor + 10
         fontPickerLabel.leadingAnchor == imageViewPlayer.leadingAnchor
         fontPickerLabel.trailingAnchor <= scrollView.trailingAnchor
-        fontPickerLabel.bottomAnchor == scrollView.bottomAnchor
+        // scroll view horizontal + page control (+ stackview in scroll view horizontal)
+        let sep10 = Separator("SCROLL VIEW HORIZONTAL")
+        scrollView.addSubview(sep10.separator)
+        sep10.separator.topAnchor == fontPickerLabel.bottomAnchor + 10
+        scrollViewHorizontal.topAnchor == sep10.separator.bottomAnchor + 10
+        scrollViewHorizontal.leadingAnchor == imageViewPlayer.leadingAnchor
+        scrollViewHorizontal.sizeAnchors == CGSize(width: 300, height: 300)
+        // (stackview in scroll view horizontal)
+        stackViewHorizontal.edgeAnchors == scrollViewHorizontal.contentLayoutGuide.edgeAnchors
+        stackViewHorizontal.heightAnchor == scrollViewHorizontal.frameLayoutGuide.heightAnchor
+        // (page control in scroll view horizontal)
+        pageControl.topAnchor == stackViewHorizontal.bottomAnchor + 10
+        pageControl.leadingAnchor == imageViewPlayer.leadingAnchor
+        pageControl.centerXAnchor == scrollView.centerXAnchor
+        // progress view
+        let sep11 = Separator("PROGRESS VIEW")
+        scrollView.addSubview(sep11.separator)
+        sep11.separator.topAnchor == pageControl.bottomAnchor + 10
+        progressView.topAnchor == sep11.separator.bottomAnchor + 10
+        progressView.leadingAnchor == imageViewPlayer.leadingAnchor
+        progressView.widthAnchor == 100
+        progressViewButton.topAnchor == progressView.bottomAnchor + 10
+        progressViewButton.leadingAnchor == imageViewPlayer.leadingAnchor
+        progressViewButton.widthAnchor == 100
+        // segmented control
+        let sep12 = Separator("SEGMENTED CONTROL")
+        scrollView.addSubview(sep12.separator)
+        sep12.separator.topAnchor == progressViewButton.bottomAnchor + 10
+        segmentedControl.topAnchor == sep12.separator.bottomAnchor + 10
+        segmentedControl.leadingAnchor == imageViewPlayer.leadingAnchor
+        segmentedControlImage.topAnchor == segmentedControl.bottomAnchor + 10
+        segmentedControlImage.sizeAnchors == CGSize(width: 200, height: 200)
+        segmentedControlImage.leadingAnchor == imageViewPlayer.leadingAnchor
+        // slider
+        let sep13 = Separator("SLIDER")
+        scrollView.addSubview(sep13.separator)
+        sep13.separator.topAnchor == segmentedControlImage.bottomAnchor + 10
+        slider.topAnchor == sep13.separator.bottomAnchor + 10
+        slider.widthAnchor == 200
+        slider.leadingAnchor == imageViewPlayer.leadingAnchor
+        sliderLabel.leadingAnchor == slider.trailingAnchor + 20
+        sliderLabel.topAnchor == sep13.separator.bottomAnchor + 10
+        // stepper
+        let sep14 = Separator("STEPPER")
+        scrollView.addSubview(sep14.separator)
+        sep14.separator.topAnchor == slider.bottomAnchor + 10
+        stepper.topAnchor == sep14.separator.bottomAnchor + 10
+        stepper.leadingAnchor == imageViewPlayer.leadingAnchor
+        stepperLabel.leadingAnchor == stepper.trailingAnchor + 10
+        stepperLabel.topAnchor == sep14.separator.bottomAnchor + 10
+        // switch
+        let sep15 = Separator("SWITCH")
+        scrollView.addSubview(sep15.separator)
+        sep15.separator.topAnchor == stepper.bottomAnchor + 10
+        sw.topAnchor == sep15.separator.bottomAnchor + 10
+        sw.leadingAnchor == imageViewPlayer.leadingAnchor
+        swLabel.leadingAnchor == sw.trailingAnchor + 10
+        swLabel.topAnchor == sep15.separator.bottomAnchor + 10
+        sw.bottomAnchor == scrollView.bottomAnchor - 30
+    }
+    
+    func appendTeamInScrollHorizontal() -> TeamView {
+        let teamView = TeamView(frame: .zero)
+        stackViewHorizontal.addArrangedSubview(teamView)
+        teamView.widthAnchor /==/ scrollViewHorizontal.frameLayoutGuide.widthAnchor
+        return teamView
     }
     
     // MARK: - Update methods

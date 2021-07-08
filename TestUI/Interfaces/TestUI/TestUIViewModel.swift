@@ -12,6 +12,7 @@ import Combine
 class TestUIViewModel: ViewModel {
     // MARK: - Architecture properties
     var data = PassthroughSubject<DataModel, Never>()
+    @Published var itemViewModels : [TeamViewModel] = []
     
     // MARK: - Business logic properties
     
@@ -20,6 +21,8 @@ class TestUIViewModel: ViewModel {
     // MARK: - Object lifecycle
     
     init() {
+        let teams = Team.getTeams()
+        self.itemViewModels = teams.map { return TeamViewModel(team: $0) }
     }
     
     func getData(){

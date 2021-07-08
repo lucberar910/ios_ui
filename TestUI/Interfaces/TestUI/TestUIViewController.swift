@@ -25,6 +25,7 @@ class TestUIViewController: UIViewController, Coordinable {
     let colorPickerController = UIColorPickerViewController()
     let colorWell = UIColorWell()
     let fontPickerController = UIFontPickerViewController()
+    let segmentedControlItems = ["Purple", "Green", "Blue"]
     
     weak var coordinator: TestUICoordinableProtocol?
     var viewModel: TestUIViewModel {
@@ -75,7 +76,11 @@ class TestUIViewController: UIViewController, Coordinable {
         configureUI()
         configureBinds()
         viewModel.getData()
+        // activity indicator
         startActivityIndicatorAnimating()
+        // scroll view horizontal + page control
+        initScrollViewHorizontal()
+        // segmented control
     }
     
     // MARK: - Configure methods
@@ -92,6 +97,8 @@ class TestUIViewController: UIViewController, Coordinable {
         self.colorPickerController.delegate = self
         // font picker
         self.fontPickerController.delegate = self
+        // scroll view horizontal
+        _view.scrollViewHorizontal.delegate = self
     }
     
     private func configureBinds() {
@@ -236,7 +243,6 @@ extension TestUIViewController : UIColorPickerViewControllerDelegate{
     func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
         _view.scrollView.backgroundColor = viewController.selectedColor
     }
-    
 //    Called on every color selection done in the picker.
 //    func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
 //        self.view.backgroundColor = viewController.selectedColor
@@ -261,5 +267,106 @@ extension TestUIViewController: UIFontPickerViewControllerDelegate {
 
         let font = UIFont(descriptor: descriptor, size: 36)
         _view.fontPickerLabel.font = font
+    }
+}
+
+// >>>>> SCROLL VIEW HORIZONTAL + PAGE CONTROL
+extension TestUIViewController : UIScrollViewDelegate {
+    // scroll view
+    func initScrollViewHorizontal(){
+        viewModel.$itemViewModels.sink { [weak self] teams in
+            guard let self = self else { return }
+            // scroll view
+            for team in teams {
+                self._view.appendTeamInScrollHorizontal().update(with: team)
+            }
+            // page control
+            self._view.pageControl.numberOfPages = teams.count
+            self._view.pageControl.addTarget(self, action: #selector(self.changePage(sender:)), for: UIControl.Event.valueChanged)
+        }.store(in: &cancellables)
+        
+        _view.scrollViewHorizontal.contentSize = CGSize(width:_view.scrollViewHorizontal.frame.size.width * 4,
+                                                        height: _view.scrollViewHorizontal.frame.size.height)
+    }
+        
+    @objc func changePage(sender: AnyObject) -> () {
+        let x = CGFloat(_view.pageControl.currentPage) * _view.scrollViewHorizontal.frame.size.width
+        _view.scrollViewHorizontal.setContentOffset(CGPoint(x:x, y:0), animated: true)
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+       let pageNumber = round(_view.scrollViewHorizontal.contentOffset.x / _view.scrollViewHorizontal.frame.size.width)
+        _view.pageControl.currentPage = Int(pageNumber)
+    }
+  
+}
+
+// >>>>> PROGRESS VIEW
+extension TestUIViewController {
+    
+    func startTimer() {
+        let progress = Progress(totalUnitCount: 10)
+        progress.completedUnitCount = 0
+        _view.progressView.progress = 0.0
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { (timer) in
+            guard progress.isFinished == false else {
+                timer.invalidate()
+                return
+            }
+            progress.completedUnitCount += 1
+            self._view.progressView.setProgress(Float(progress.fractionCompleted), animated: true)
+        }
+    }
+        
+    @objc func nextProgressView(){
+        // timer
+        startTimer()
+        // step by step
+//        _view.progressView.progress = 0.0
+//        progress.completedUnitCount += 1
+//        _view.progressView.setProgress(Float(self.progress.fractionCompleted), animated: true)
+    }
+}
+
+// >>>>> SEGMENTED CONTROL
+extension TestUIViewController {
+    @objc func changeSegment(sender: UISegmentedControl) {
+          switch sender.selectedSegmentIndex {
+              case 0:
+                _view.segmentedControlImage.image = #imageLiteral(resourceName: "234043823-390c6553-ad33-4f97-8606-6d050b73c2a1")
+              case 1:
+                _view.segmentedControlImage.image = #imageLiteral(resourceName: "490px-Logo_of_AC_Milan.svg")
+              case 2:
+                _view.segmentedControlImage.image = #imageLiteral(resourceName: "Inter logo")
+              default:
+                ()
+          }
+      }
+}
+
+// >>>>> SLIDER
+extension TestUIViewController {
+    @objc func sliderValueDidChange(_ sender:UISlider!){
+       let step:Float=1
+       let roundedStepValue = round(sender.value / step) * step
+        _view.sliderLabel.text = "\(Int(roundedStepValue))"
+    }
+}
+
+// >>>>> STEPPER
+extension TestUIViewController {
+    @objc func stepperValueChanged(_ stepper: UIStepper) {
+        _view.stepperLabel.text = "\(Int(stepper.value))"
+    }
+}
+
+// >>>>> SWICTH
+extension TestUIViewController {
+    @objc func switchValueChanged(){
+        if _view.sw.isOn {
+            _view.swLabel.text = "On"
+        } else {
+            _view.swLabel.text = "Off"
+        }
     }
 }

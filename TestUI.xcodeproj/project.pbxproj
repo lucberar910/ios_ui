@@ -23,6 +23,8 @@
 		DEF1A5CB2694610A00287944 /* MainContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF1A5CA2694610A00287944 /* MainContainer.swift */; };
 		DEF1A5CD2694615A00287944 /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF1A5CC2694615A00287944 /* Container.swift */; };
 		DEF1A5D0269465A000287944 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF1A5CF269465A000287944 /* DataModel.swift */; };
+		DEF1A5D42695F3D000287944 /* TeamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF1A5D22695F3D000287944 /* TeamView.swift */; };
+		DEF1A5D52695F3D000287944 /* TeamViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF1A5D32695F3D000287944 /* TeamViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +45,8 @@
 		DEF1A5CA2694610A00287944 /* MainContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainContainer.swift; sourceTree = "<group>"; };
 		DEF1A5CC2694615A00287944 /* Container.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Container.swift; sourceTree = "<group>"; };
 		DEF1A5CF269465A000287944 /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
+		DEF1A5D22695F3D000287944 /* TeamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamView.swift; sourceTree = "<group>"; };
+		DEF1A5D32695F3D000287944 /* TeamViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +107,7 @@
 		DEF1A5B826945A4600287944 /* Interfaces */ = {
 			isa = PBXGroup;
 			children = (
+				DEF1A5D12695F3BB00287944 /* TeamView */,
 				DEF1A5B926945A5500287944 /* TestUI */,
 			);
 			path = Interfaces;
@@ -134,6 +139,15 @@
 				DEF1A5CF269465A000287944 /* DataModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		DEF1A5D12695F3BB00287944 /* TeamView */ = {
+			isa = PBXGroup;
+			children = (
+				DEF1A5D22695F3D000287944 /* TeamView.swift */,
+				DEF1A5D32695F3D000287944 /* TeamViewModel.swift */,
+			);
+			path = TeamView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -216,6 +230,8 @@
 				DEF1A5BD26945A7200287944 /* TestUIViewController.swift in Sources */,
 				DEF1A59A2694580C00287944 /* ViewController.swift in Sources */,
 				DEF1A5962694580C00287944 /* AppDelegate.swift in Sources */,
+				DEF1A5D52695F3D000287944 /* TeamViewModel.swift in Sources */,
+				DEF1A5D42695F3D000287944 /* TeamView.swift in Sources */,
 				DEF1A5CB2694610A00287944 /* MainContainer.swift in Sources */,
 				DEF1A5D0269465A000287944 /* DataModel.swift in Sources */,
 				DEF1A5AA269458DA00287944 /* MainCoodinator.swift in Sources */,
