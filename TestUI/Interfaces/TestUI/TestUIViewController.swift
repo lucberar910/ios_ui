@@ -80,7 +80,8 @@ class TestUIViewController: UIViewController, Coordinable {
         startActivityIndicatorAnimating()
         // scroll view horizontal + page control
         initScrollViewHorizontal()
-        // segmented control
+        // label attribute strings
+        labelAttrString()
     }
     
     // MARK: - Configure methods
@@ -144,6 +145,7 @@ extension TestUIViewController {
     }
 }
 
+
 // >>>>> PICKER
 extension TestUIViewController : UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -165,6 +167,7 @@ extension TestUIViewController : UIPickerViewDelegate, UIPickerViewDataSource {
     }
 }
 
+
 // >>>>> IMAGE PICKER - GALLERY
 extension TestUIViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     @objc func buttonImagePickerPressed() {
@@ -180,6 +183,7 @@ extension TestUIViewController : UIImagePickerControllerDelegate, UINavigationCo
             dismiss(animated: true, completion: nil)
     }
 }
+
 
 // >>>>> IMAGE PICKER - GALLERY + CAMERA
 extension TestUIViewController {
@@ -211,6 +215,7 @@ extension TestUIViewController {
         self.present(self.imgPickerController, animated: true, completion: nil)
     }
 }
+
 
 // >>>>> ALERT
 extension TestUIViewController {
@@ -249,12 +254,14 @@ extension TestUIViewController : UIColorPickerViewControllerDelegate{
 //    }
 }
 
+
 // >>>>> COLOR WELL
 extension TestUIViewController {
     @objc func colorWellChanged(_ sender: Any) {
         _view.scrollView.backgroundColor = _view.colorWell.selectedColor
     }
 }
+
 
 // >>>>> FONT PICKER
 extension TestUIViewController: UIFontPickerViewControllerDelegate {
@@ -269,6 +276,7 @@ extension TestUIViewController: UIFontPickerViewControllerDelegate {
         _view.fontPickerLabel.font = font
     }
 }
+
 
 // >>>>> SCROLL VIEW HORIZONTAL + PAGE CONTROL
 extension TestUIViewController : UIScrollViewDelegate {
@@ -301,6 +309,7 @@ extension TestUIViewController : UIScrollViewDelegate {
   
 }
 
+
 // >>>>> PROGRESS VIEW
 extension TestUIViewController {
     
@@ -328,6 +337,7 @@ extension TestUIViewController {
     }
 }
 
+
 // >>>>> SEGMENTED CONTROL
 extension TestUIViewController {
     @objc func changeSegment(sender: UISegmentedControl) {
@@ -344,6 +354,7 @@ extension TestUIViewController {
       }
 }
 
+
 // >>>>> SLIDER
 extension TestUIViewController {
     @objc func sliderValueDidChange(_ sender:UISlider!){
@@ -353,12 +364,14 @@ extension TestUIViewController {
     }
 }
 
+
 // >>>>> STEPPER
 extension TestUIViewController {
     @objc func stepperValueChanged(_ stepper: UIStepper) {
         _view.stepperLabel.text = "\(Int(stepper.value))"
     }
 }
+
 
 // >>>>> SWICTH
 extension TestUIViewController {
@@ -368,5 +381,13 @@ extension TestUIViewController {
         } else {
             _view.swLabel.text = "Off"
         }
+    }
+}
+
+
+// >>>>> LABEL ATTRIBUTE STRING
+extension TestUIViewController {
+    func labelAttrString(){
+        _view.labelAttrString()
     }
 }

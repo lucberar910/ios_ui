@@ -404,6 +404,12 @@ class TestUIView: UIView {
         label.text = "On"
         return label
     }()
+    
+    // >>>>> LABEL ATTRIBUTE STRINGS
+    let viewLabelAttrStrings : UIView = {
+        let view = UIView()
+        return view
+    }()
         
     
     // MARK: - Object lifecycle
@@ -480,6 +486,8 @@ class TestUIView: UIView {
         //------------ swicth
         scrollView.addSubview(sw)
         scrollView.addSubview(swLabel)
+        //------------ label attribute strings
+        scrollView.addSubview(viewLabelAttrStrings)
     }
     
     private func configureConstraints() {
@@ -658,7 +666,13 @@ class TestUIView: UIView {
         sw.leadingAnchor == imageViewPlayer.leadingAnchor
         swLabel.leadingAnchor == sw.trailingAnchor + 10
         swLabel.topAnchor == sep15.separator.bottomAnchor + 10
-        sw.bottomAnchor == scrollView.bottomAnchor - 30
+        // label attributes strings
+        let sep16 = Separator("LABEL ATTRIBUTE STRINGS")
+        scrollView.addSubview(sep16.separator)
+        sep16.separator.topAnchor == sw.bottomAnchor + 10
+        viewLabelAttrStrings.topAnchor == sep16.separator.bottomAnchor + 10
+        viewLabelAttrStrings.leadingAnchor == imageViewPlayer.leadingAnchor
+        viewLabelAttrStrings.bottomAnchor == scrollView.bottomAnchor - 30
     }
     
     func appendTeamInScrollHorizontal() -> TeamView {
@@ -673,6 +687,104 @@ class TestUIView: UIView {
     func update(with viewModel: TestUIViewModel) {
         cancellables.forEach { $0.cancel() }
     }
+    
+    func labelAttrString(){
+        let string = "Testing Attributed Strings"
+        
+        // foreground
+        let label1 = UILabel()
+        var myAttribute = [ NSAttributedString.Key.foregroundColor: UIColor.blue ]
+        label1.attributedText = NSAttributedString(string: string, attributes: myAttribute)
+        viewLabelAttrStrings.addSubview(label1)
+        label1.topAnchor == viewLabelAttrStrings.topAnchor
+        
+        // background
+        let label2 = UILabel()
+        myAttribute = [ NSAttributedString.Key.backgroundColor: UIColor.yellow ]
+        label2.attributedText = NSAttributedString(string: string, attributes: myAttribute)
+        viewLabelAttrStrings.addSubview(label2)
+        label2.topAnchor == label1.bottomAnchor + 10
+        
+        // underline
+        let label3 = UILabel()
+        let myAttrUnderline = [ NSAttributedString.Key.underlineStyle : 1 ]
+        label3.attributedText = NSAttributedString(string: string, attributes: myAttrUnderline)
+        viewLabelAttrStrings.addSubview(label3)
+        label3.topAnchor == label2.bottomAnchor + 10
+        
+        // strikethroughStyle
+        let label4 = UILabel()
+        let myAttrStrikethroughStyle = [ NSAttributedString.Key.strikethroughStyle : 1 ]
+        label4.attributedText = NSAttributedString(string: string, attributes: myAttrStrikethroughStyle)
+        viewLabelAttrStrings.addSubview(label4)
+        label4.topAnchor == label3.bottomAnchor + 10
+        
+        // font
+        let label5 = UILabel()
+        let myAttrFont = [ NSAttributedString.Key.font : UIFont.systemFont(ofSize: 30) ]
+        label5.attributedText = NSAttributedString(string: string, attributes: myAttrFont)
+        viewLabelAttrStrings.addSubview(label5)
+        label5.topAnchor == label4.bottomAnchor + 10
+        
+        // foreground + background + underline + font + strikethroughStyle
+        let label6 = UILabel()
+        let attributedString = NSMutableAttributedString(string: string)
+        let firstAttributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: UIColor.blue,
+            .backgroundColor: UIColor.yellow,
+            .underlineStyle: 1]
+        let secondAttributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: UIColor.red,
+            .backgroundColor: UIColor.blue,
+            .strikethroughStyle: 1]
+        let thirdAttributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: UIColor.green,
+            .backgroundColor: UIColor.black,
+            .font: UIFont.systemFont(ofSize: 40)]
+        attributedString.addAttributes(firstAttributes, range: NSRange(location: 0, length: 8))
+        attributedString.addAttributes(secondAttributes, range: NSRange(location: 8, length: 11))
+        attributedString.addAttributes(thirdAttributes, range: NSRange(location: 19, length: 7))
+        label6.attributedText = attributedString
+        viewLabelAttrStrings.addSubview(label6)
+        label6.topAnchor == label5.bottomAnchor + 10
+        
+        // shadow
+        let label7 = UILabel()
+        let myShadow = NSShadow()
+        myShadow.shadowBlurRadius = 3
+        myShadow.shadowOffset = CGSize(width: 3, height: 3)
+        myShadow.shadowColor = UIColor.gray
+        let myAttrShadow = [ NSAttributedString.Key.shadow: myShadow ]
+        label7.attributedText = NSAttributedString(string: string, attributes: myAttrShadow)
+        viewLabelAttrStrings.addSubview(label7)
+        label7.topAnchor == label6.bottomAnchor + 10
+        
+        // NSMutableAttributedString
+        let attributedString2 = NSMutableAttributedString(string: "This is a test string")
+        attributedString2.addAttribute(.font, value: UIFont.systemFont(ofSize: 16), range: NSRange(location: 0, length: 4))
+        attributedString2.addAttribute(.font, value: UIFont.systemFont(ofSize: 24), range: NSRange(location: 5, length: 2))
+        attributedString2.addAttribute(.font, value: UIFont.systemFont(ofSize: 32), range: NSRange(location: 8, length: 1))
+        attributedString2.addAttribute(.font, value: UIFont.systemFont(ofSize: 40), range: NSRange(location: 10, length: 4))
+        attributedString2.addAttribute(.font, value: UIFont.systemFont(ofSize: 48), range: NSRange(location: 15, length: 6))
+        let label8 = UILabel()
+        label8.attributedText = attributedString2
+        viewLabelAttrStrings.addSubview(label8)
+        label8.topAnchor == label7.bottomAnchor + 10
+        
+        // enumerating attributes
+        let sentence = "the cat sat on the mat"
+        let regularAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12)]
+        let largeAttributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 24)]
+        let attributedSentence = NSMutableAttributedString(string: sentence, attributes: regularAttributes)
+        attributedSentence.setAttributes(largeAttributes, range: NSRange(location: 0, length: 3))
+        attributedSentence.setAttributes(largeAttributes, range: NSRange(location: 8, length: 3))
+        attributedSentence.setAttributes(largeAttributes, range: NSRange(location: 15, length: 3))
+        let label9 = UILabel()
+        label9.attributedText = attributedSentence
+        viewLabelAttrStrings.addSubview(label9)
+        label9.topAnchor == label8.bottomAnchor + 10
+        label9.bottomAnchor == viewLabelAttrStrings.bottomAnchor - 30
+    }
 
 }
 
@@ -682,6 +794,11 @@ class Separator {
         return label
     }()
     init(_ nameComponent : String) {
-        separator.text = "********* \(nameComponent)"
+        let attributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: UIColor.white,
+            .backgroundColor: UIColor.systemBlue,
+            .font: UIFont.boldSystemFont(ofSize: 20)
+        ]
+        separator.attributedText = NSAttributedString(string: "********* \(nameComponent)", attributes: attributes)
     }
 }
